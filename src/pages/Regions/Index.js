@@ -75,6 +75,11 @@ function Region(props) {
 										: <p>Вы здесь</p>
 									: <p>Moving...</p>
 							}
+							{
+								dataUser.priv === 3
+									? <Link className="button" to={`/adminPanel/regions/edit/${region._id}`}>Редактировать</Link>
+									: null
+							}
 						</div>
 						<div className="block">
 							{

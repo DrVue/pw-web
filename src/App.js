@@ -14,6 +14,7 @@ import AdminPanel from "./pages/AdminPanel/Index";
 import AdminRegions from "./pages/AdminPanel/Regions/Index";
 import AdminRegionsSearch from "./pages/AdminPanel/Regions/Search";
 import AdminRegionsAdd from "./pages/AdminPanel/Regions/Add";
+import AdminRegionsEdit from "./pages/AdminPanel/Regions/Edit";
 import Factors from "./pages/Work/Factors";
 import Factory from "./pages/Work/Factory";
 import FactoryAdd from "./pages/Work/AddFactory";
@@ -39,6 +40,7 @@ function App() {
 			<Route path="/adminPanel/regions" exact component={AdminRegions}/>
 			<Route path="/adminPanel/regions/search" exact component={AdminRegionsSearch}/>
 			<Route path="/adminPanel/regions/add" exact component={AdminRegionsAdd}/>
+			<Route path="/adminPanel/regions/edit/:id" exact component={AdminRegionsEdit}/>
 			<NavBottom/>
 		</BrowserRouter>
 	</div>
