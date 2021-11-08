@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import Resources from "../components/Resourses";
+import GlobalChat from "../components/GlobalChat";
 import axios from "axios";
 
 function Home(props) {
@@ -75,6 +76,7 @@ function Home(props) {
 							}
 						</div>
 						<Resources res={dataUser}/>
+						<GlobalChat tag="globalRU"/>
 						<div className="block">
 							{
 								dataUser.priv === 3

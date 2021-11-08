@@ -25,6 +25,31 @@ body {
 		background-color: #363636;
 		padding: 10px;
 		margin: 10px;
+
+		& .block {
+			background-color: #474747;
+			padding: 10px;
+			margin: 10px;
+		}
+	}
+}
+
+.block.chat {
+	//width: 200px;
+	height: 300px;
+	overflow-y: scroll;
+
+	& .msg {
+		text-align: left;
+		margin-bottom: 5px;
+
+		& .name {
+			font-size: 0.7em;
+		}
+
+		& .text {
+			font-size: 0.8em;
+		}
 	}
 }
 
@@ -77,20 +102,32 @@ body {
 		display: block;
 		width: 100%;
 	}
+}
+
+.formChat {
+	display: flex;
 
 	& .input {
-		display: block;
-		background-color: #474747;
-		margin-bottom: 10px;
-		padding-top: 5px;
-		padding-bottom: 5px;
-		color: #fff;
-		width: 100%;
-		border: 0;
+		width: 80%;
+	}
 
-		&:focus {
-			background-color: #6c6c6c;
-		}
+	& .button {
+		width: 20%;
+	}
+}
+
+.input {
+	display: block;
+	background-color: #474747;
+	margin-bottom: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: #fff;
+	width: 100%;
+	border: 0;
+
+	&:focus {
+		background-color: #6c6c6c;
 	}
 }
 

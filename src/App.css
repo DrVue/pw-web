@@ -25,6 +25,26 @@ body {
   padding: 10px;
   margin: 10px;
 }
+.page .content .block .block {
+  background-color: #474747;
+  padding: 10px;
+  margin: 10px;
+}
+
+.block.chat {
+  height: 300px;
+  overflow-y: scroll;
+}
+.block.chat .msg {
+  text-align: left;
+  margin-bottom: 5px;
+}
+.block.chat .msg .name {
+  font-size: 0.7em;
+}
+.block.chat .msg .text {
+  font-size: 0.8em;
+}
 
 .header {
   background-color: #363636;
@@ -71,7 +91,18 @@ body {
   display: block;
   width: 100%;
 }
-.form .input {
+
+.formChat {
+  display: flex;
+}
+.formChat .input {
+  width: 80%;
+}
+.formChat .button {
+  width: 20%;
+}
+
+.input {
   display: block;
   background-color: #474747;
   margin-bottom: 10px;
@@ -81,7 +112,7 @@ body {
   width: 100%;
   border: 0;
 }
-.form .input:focus {
+.input:focus {
   background-color: #6c6c6c;
 }
 
