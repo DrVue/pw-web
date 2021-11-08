@@ -82,6 +82,7 @@ function Home(props) {
 									: null
 							}
 							<Link className="button" to="/region/search">Регионы</Link>
+							<Link className="button" to="/work">Работа</Link>
 							<button className="button" onClick={signOut}>Выход</button>
 						</div>
 					</div>

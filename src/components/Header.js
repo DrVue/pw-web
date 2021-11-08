@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import {withRouter} from "react-router-dom";
+import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
 
 function Header(props) {
@@ -7,6 +7,7 @@ function Header(props) {
 	const [isLoading, setIsLoading] = useState(true);
 	const [response, setResponse] = useState(null);
 	const [err, setErr] = useState(null);
+	// const [interval] = useState(setInterval(() => checkToken(), 4000))
 
 	const checkToken = () => {
 		const token = localStorage.getItem("token");
@@ -24,10 +25,14 @@ function Header(props) {
 		}
 	};
 
+	// setInterval(() => checkToken(), 1000)
+
 	useEffect(() => {
 		if (isLoading) {
 			checkToken();
 		}
+
+		// setInterval(() => checkToken(), 1000)
 	})
 
 	return <div className="">
@@ -38,6 +43,7 @@ function Header(props) {
 					<div>LVL: {dataUser.lvl} ({dataUser.exp}/{dataUser.expMax})</div>
 					<div>E: {dataUser.energy}/{dataUser.energyMax}</div>
 					<div>{dataUser.money}$ {dataUser.gold}kg.G</div>
+					<Link style={{color: "#fff"}} onClick={checkToken}>Обновить</Link>
 				</div>
 				: <p></p>
 		}
