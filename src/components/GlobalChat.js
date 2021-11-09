@@ -64,10 +64,13 @@ function GlobalChat(props) {
 		if (isLoading) {
 			checkToken();
 		}
+		// return () => {
+		// 	socket.disconnect();
+		// }
 	})
 
 	useEffect(() => {
-		if (!isLoading) {
+		return () => {
 			socket.disconnect();
 		}
 	}, [])
