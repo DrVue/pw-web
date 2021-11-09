@@ -1,20 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
-import openSocket from "socket.io-client";
-const socket = openSocket("http://192.168.1.40:30011")
-
-function subscribeToChat (cb) {
-	socket.on("message", data => cb(data));
-	socket.emit("subscribeToChat", "globalRU");
-}
+import socket from "../socket.io";
 
 function GlobalChat(props) {
 	const [dataUser, setDataUser] = useState({});
 	const [msgs, setMsgs] = useState([]);
 	const [isLoading, setIsLoading] = useState(true);
 	const [text, setText] = useState("");
-	// const [interval] = useState(setInterval(() => get(), 1000))
 
 	const checkToken = () => {
 		const token = localStorage.getItem("token");
@@ -24,7 +17,7 @@ function GlobalChat(props) {
 			}).then(req => {
 				if (req.data.response === "ok") {
 					setDataUser(req.data.data);
-					socket.on("message", data => {setMsgs(data); console.log(data)});
+					socket.on("message", data => {setMsgs(data);});
 					socket.emit("subscribeToChat", "globalRU");
 					setIsLoading(false);
 				} else {

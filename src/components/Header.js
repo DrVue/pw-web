@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
+import socket from "../socket.io";
 
 function Header(props) {
 	const [dataUser, setDataUser] = useState({});
 	const [isLoading, setIsLoading] = useState(true);
 	const [response, setResponse] = useState(null);
 	const [err, setErr] = useState(null);
-	// const [interval] = useState(setInterval(() => checkToken(), 4000))
 
 	const checkToken = () => {
 		const token = localStorage.getItem("token");
@@ -16,7 +16,9 @@ function Header(props) {
 				token: token,
 			}).then(req => {
 				if (req.data.response === "ok") {
-					setDataUser(req.data.data);
+					// setDataUser(req.data.data);
+					socket.on("userInfo", data => {setDataUser(data); console.log(data)});
+					socket.emit("subscribeToUserInfo", token);
 					setIsLoading(false);
 				} else {
 					props.history.push("/");
@@ -31,9 +33,13 @@ function Header(props) {
 		if (isLoading) {
 			checkToken();
 		}
-
-		// setInterval(() => checkToken(), 1000)
 	})
+
+	useEffect(() => {
+		return () => {
+			socket.disconnect();
+		}
+	}, [])
 
 	return <div className="">
 		{

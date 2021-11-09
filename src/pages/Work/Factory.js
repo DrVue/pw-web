@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
 import Resources from "../../components/Resourses";
+import socket from "../../socket.io";
 
 function Factory(props) {
 	const [dataUser, setDataUser] = useState({});
@@ -50,9 +51,11 @@ function Factory(props) {
 		}).then(req => {
 			if (req.data.response === "ok") {
 				setMsg("OK")
+				// socket.emit("updateUserInfo", token);
 			} else {
 				setResponse("err");
 				setMsg("Энергия кончилась")
+				// socket.emit("updateUserInfo", token);
 			}
 		})
 	}
