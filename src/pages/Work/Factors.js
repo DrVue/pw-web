@@ -36,6 +36,20 @@ function Factors(props) {
 		}).catch(() => setIsLoading(false))
 	}
 
+	function getTypeName (type) {
+		// eslint-disable-next-line default-case
+		switch (type) {
+			case "gold":
+				return "Золотоносная шахта";
+			case "oil":
+				return "Нефтяная скважина";
+			case "ore":
+				return "Минеральная шахта";
+			case "buildingMaterial":
+				return "Завод строй.материалов";
+		}
+	}
+
 	useEffect(() => {
 		if (isLoading) {
 			checkToken();
@@ -44,17 +58,24 @@ function Factors(props) {
 
 	return <div className="page">
 		<div className="content">
+			<div className="block">
+				<Link className="button green" to="/factory/add">Создать завод</Link>
+			</div>
 			{
 				!isLoading
 					? <div className="block">
-						<Link className="button" to="/factory/add">Создать завод</Link>
 						{
 							factors.map((e, i) => {
-								return <Link className="button" to={`/factory/get/${e._id}`}>{e.name} ({e.type})</Link>
+								return <Link className="button" to={`/factory/get/${e._id}`}>{e.name} (LVL: {e.lvl}) <br/> {getTypeName(e.type)}</Link>
 							})
 						}
+						{
+							factors.length === 0
+								? <p>Заводов в этом регионе пока нет</p>
+								: null
+						}
 					</div>
-					: <h3>Loading...</h3>
+					: <p>Loading...</p>
 			}
 		</div>
 	</div>

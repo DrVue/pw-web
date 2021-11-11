@@ -3,6 +3,8 @@ import {withRouter, Link} from "react-router-dom";
 import Resources from "../components/Resourses";
 import GlobalChat from "../components/GlobalChat";
 import axios from "axios";
+import Icon from "@mdi/react";
+import {mdiCogBox, mdiCity, mdiEmailBox, mdiFactory, mdiExitRun} from "@mdi/js";
 
 function Home(props) {
 	const [dataUser, setDataUser] = useState({});
@@ -25,6 +27,20 @@ function Home(props) {
 					}
 				} else {
 					props.history.push("/");
+				}
+			})
+		}
+	};
+
+	const closeNotify = (type = "notifyNewLevel") => {
+		const token = localStorage.getItem("token");
+		if (token) {
+			axios.post("/api/users/auth/deleteNotify", {
+				token: token,
+				type: type,
+			}).then(req => {
+				if (req.data.response === "ok") {
+					checkToken();
 				}
 			})
 		}
@@ -61,14 +77,30 @@ function Home(props) {
 			{
 				!isLoading
 					? <div>
-						<div className="block">
+						{
+							dataUser.notifyNewLevel
+								? <div className="block">
+									Поздравляем с {dataUser.lvl}-ым уровнем
+									<button className="button" onClick={() => closeNotify("notifyNewLevel")}>Закрыть</button>
+								</div>
+								: null
+						}
+						{
+							dataUser.notifyNewMail
+								? <div className="block">
+									У вас новые сообщения
+									<button className="button" onClick={() => closeNotify("notifyNewMail")}>Закрыть</button>
+								</div>
+								: null
+						}
+						<div className="block left">
 							{
 								dataUser.region !== "null"
 									? <div>
-										<p>{region.name}</p>
+										<div>{region.name}</div>
 										{
 											region.government === "null"
-												? <p>Независимый регион</p>
+												? <div>Независимый регион</div>
 												: null
 										}
 									</div>
@@ -77,15 +109,16 @@ function Home(props) {
 						</div>
 						<Resources res={dataUser}/>
 						<GlobalChat tag="globalRU"/>
-						<div className="block">
+						<div className="block menu">
 							{
 								dataUser.priv === 3
-									? <Link className="button" to="/adminPanel">Админ-панель</Link>
+									? <Link className="button" to="/adminPanel"><Icon path={mdiCogBox} size={1.5}/>Админ</Link>
 									: null
 							}
-							<Link className="button" to="/region/search">Регионы</Link>
-							<Link className="button" to="/work">Работа</Link>
-							<button className="button" onClick={signOut}>Выход</button>
+							<Link className="button" to="/region/search"><Icon path={mdiCity} size={1.5}/>Регионы</Link>
+							<Link className="button" to="/work"><Icon path={mdiFactory} size={1.5}/>Работа</Link>
+							<Link className="button" to="/mail"><Icon path={mdiEmailBox} size={1.5}/>Почта</Link>
+							<button className="button red" onClick={signOut}><Icon path={mdiExitRun} size={1.5}/>Выход</button>
 						</div>
 					</div>
 					: <h3>Loading...</h3>

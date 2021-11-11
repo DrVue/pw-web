@@ -2,6 +2,9 @@ import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
 import socket from "../socket.io";
+import moment from "moment";
+import {mdiSend} from "@mdi/js";
+import Icon from "@mdi/react";
 
 function GlobalChat(props) {
 	const [dataUser, setDataUser] = useState({});
@@ -17,8 +20,11 @@ function GlobalChat(props) {
 			}).then(req => {
 				if (req.data.response === "ok") {
 					setDataUser(req.data.data);
-					socket.on("message", data => {setMsgs(data);});
-					socket.emit("subscribeToChat", "globalRU");
+					// if (!socket.connected) {
+					socket.connect();
+						socket.on("message", data => {setMsgs(data);});
+						socket.emit("subscribeToChat", "globalRU");
+					// }
 					setIsLoading(false);
 				} else {
 					props.history.push("/");
@@ -26,19 +32,6 @@ function GlobalChat(props) {
 			}).catch(() => setIsLoading(false))
 		}
 	};
-
-	const get = () => {
-		// axios.post("/api/chats/getMessagesByTag", {
-		// 	// id: props.match.params.id,
-		// 	tag: props.tag,
-		// }).then(req => {
-		// 	if (req.data.response === "ok") {
-		// 		setMsgs(req.data.data);
-		// 		setIsLoading(false);
-		// 	}
-		// })
-
-	}
 
 	const send = () => {
 		axios.post("/api/chats/newMessageByTag", {
@@ -77,7 +70,7 @@ function GlobalChat(props) {
 						{
 							msgs.map((e, i) => {
 								return <div className="msg">
-									<div className="name">{e.userName}</div>
+									<Link className="name" to={`/users/get/${e.userId}`} style={{color: "white"}}>{e.userName} {moment(e.time).format("HH:mm")}</Link>
 									<div className="text">{e.text}</div>
 								</div>
 							})
@@ -87,7 +80,7 @@ function GlobalChat(props) {
 			}
 			<div className="formChat">
 				<input type="text" className="input" onChange={e => setText(e.target.value)} value={text}/>
-				<button className="button" onClick={send}>SEND</button>
+				<button className="button blue" onClick={send}><Icon path={mdiSend} size={1}/></button>
 			</div>
 		</div>
 	</div>

@@ -2,9 +2,19 @@ import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
 import socket from "../socket.io";
+import millify from "millify";
+import Icon from "@mdi/react";
+import {mdiLightningBolt, mdiArrowUpThick} from "@mdi/js";
+import ProgressBar from "./ProgressBar";
 
 function Header(props) {
-	const [dataUser, setDataUser] = useState({});
+	const [dataUser, setDataUser] = useState({
+		lvl: 0,
+		exp: 0,
+		expMax: 0,
+		money: 0,
+		gold: 0,
+	});
 	const [isLoading, setIsLoading] = useState(true);
 	const [response, setResponse] = useState(null);
 	const [err, setErr] = useState(null);
@@ -17,8 +27,9 @@ function Header(props) {
 			}).then(req => {
 				if (req.data.response === "ok") {
 					// setDataUser(req.data.data);
-					socket.on("userInfo", data => {setDataUser(data); console.log(data)});
+					socket.connect();
 					socket.emit("subscribeToUserInfo", token);
+					socket.on("userInfo", data => {setDataUser(data); console.log(data)});
 					setIsLoading(false);
 				} else {
 					props.history.push("/");
@@ -26,8 +37,6 @@ function Header(props) {
 			})
 		}
 	};
-
-	// setInterval(() => checkToken(), 1000)
 
 	useEffect(() => {
 		if (isLoading) {
@@ -41,15 +50,13 @@ function Header(props) {
 		}
 	}, [])
 
-	return <div className="">
+	return <div className="header">
 		{
-			!isLoading
-				? <div className="header">
-					<div>{dataUser.name}</div>
-					<div>LVL: {dataUser.lvl} ({dataUser.exp}/{dataUser.expMax})</div>
-					<div>E: {dataUser.energy}/{dataUser.energyMax}</div>
-					<div>{dataUser.money}$ {dataUser.gold}kg.G</div>
-					<Link style={{color: "#fff"}} onClick={checkToken}>Обновить</Link>
+			!isLoading && dataUser
+				? <div>
+					<div style={{display: "flex", justifyContent: "spaceBetween", alignItems: "center"}}><Icon path={mdiArrowUpThick} size={1}/><ProgressBar progress={((dataUser.exp / dataUser.expMax) * 100) + "%"}/></div>
+					<div style={{display: "flex", justifyContent: "spaceBetween", alignItems: "center"}}><Icon path={mdiLightningBolt} size={1}/><ProgressBar progress={((dataUser.energy / 200) * 100) + "%"}/></div>
+					<div>{millify(dataUser.money)}$ {dataUser.gold}kg.G</div>
 				</div>
 				: <p></p>
 		}

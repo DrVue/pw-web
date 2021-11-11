@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
 import Icon from "@mdi/react";
-import {mdiHome} from "@mdi/js";
+import {mdiHome, mdiAccount} from "@mdi/js";
 
 function NavBottom(props) {
 	const [dataUser, setDataUser] = useState({});
@@ -32,13 +32,18 @@ function NavBottom(props) {
 		}
 	})
 
-	return <div className="">
+	return <div className="navBottom">
 		{
 			!isLoading
-				? <div className="navBottom">
+				? <div className="menu">
 					<Link className="link" to="/home">
-						<Icon path={mdiHome} title="Домой" size={2}/>
+						<Icon path={mdiHome} size={2}/>
 						<div className="title">Домой</div>
+					</Link>
+
+					<Link className="link" to={"/users/get/" + dataUser._id}>
+						<Icon path={mdiAccount} size={2}/>
+						<div className="title">Профиль</div>
 					</Link>
 				</div>
 				: <div/>

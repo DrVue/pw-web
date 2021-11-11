@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
+import Icon from "@mdi/react";
+import {mdiMagnify} from "@mdi/js";
 
 function AdminRegionsSearch(props) {
 	const [dataUser, setDataUser] = useState({});
@@ -52,13 +54,14 @@ function AdminRegionsSearch(props) {
 					? <div>
 						<h3>Поиск региона</h3>
 						<div className="block">
-							<div className="form">
-								<label htmlFor="search">Название региона</label>
+							<div className="formChat">
 								<input type="text" name="search" className="input" onChange={e => setName(e.target.value)}/>
-								<button className="button" onClick={searchRegions}>Поиск</button>
+								<button className="button blue" onClick={searchRegions}><Icon path={mdiMagnify} size={1}/></button>
 							</div>
-							{
-								!isSearching
+						</div>
+						{
+							regions.length !== 0
+								? !isSearching
 									? <div className="block">
 										{
 											regions.map((e, i) => {
@@ -67,8 +70,8 @@ function AdminRegionsSearch(props) {
 										}
 									</div>
 									: <p>Поиск...</p>
-							}
-						</div>
+								: null
+						}
 					</div>
 					: <h3>Loading...</h3>
 			}

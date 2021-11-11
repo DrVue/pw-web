@@ -1,18 +1,27 @@
 import React from "react";
+import Icon from "@mdi/react";
+import {mdiLightningBolt, mdiBarrel, mdiDiamondStone, mdiWall} from "@mdi/js";
+import millify from "millify";
 
 const Resources = (props) => {
 	const Resource = (props) => {
-		return <div>
-			<span>{props.name}: </span>
-			<span>{props.value}</span>
+		return <div style={{ width: "100px", display: "flex", flexDirection: "column", alignItems: "center"}}>
+			<span style={{fontSize: "0.8em"}}>{props.name}: </span>
+			<Icon style={{padding: "5px 0"}} path={props.icon} size={1.2}/>
+			<span>{millify(props.value)} {props.unit}</span>
 		</div>
 	}
 
-	return <div className="block">
-		<Resource name="Стимуляторы" value={props.res.energyBank}/>
-		<Resource name="Нефть" value={props.res.oil}/>
-		<Resource name="Руда" value={props.res.ore}/>
-		<Resource name="Строй.материалы" value={props.res.buildingMaterial}/>
+	const styles = {
+		display: "flex",
+		justifyContent: "space-around"
+	}
+
+	return <div className="block" style={styles}>
+		<Resource name="Стимулят." icon={mdiLightningBolt} value={props.res.energyBank}/>
+		<Resource name="Нефть" icon={mdiBarrel} value={props.res.oil} unit="барр."/>
+		<Resource name="Руда" icon={mdiDiamondStone} value={props.res.ore} unit="кг"/>
+		<Resource name="Строй.мат." icon={mdiWall} value={props.res.buildingMaterial} unit="кг"/>
 	</div>
 }
 

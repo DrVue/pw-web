@@ -1,5 +1,5 @@
 body {
-	background-color: #1d1d1d;
+	background-color: #000;
 	display: flex;
 	justify-content: center;
 	padding: 0;
@@ -7,29 +7,105 @@ body {
 	color: #fff;
 }
 
+.App {
+	background-color: #000;
+	display: flex;
+	justify-content: center;
+	padding: 0;
+	margin: 0;
+	color: #fff;
+	width: 400px;
+}
+
+.button {
+	color: #fff;
+	width: 100%;
+	border: 0;
+	margin-bottom: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #474747;
+	text-decoration: none;
+	font-size: 1em;
+	border-radius: 28px;
+
+	&.left {
+		text-align: left;
+		justify-content: flex-start;
+		padding: 5px 10px;
+		width: calc(100% - 20px);
+	}
+
+	&.red {
+		background-color: #fd0101;
+	}
+
+	&.blue {
+		background-color: #0198fd;
+	}
+
+	&.green {
+		background-color: #00db2f;
+	}
+
+	&:hover {
+		background-color: #6c6c6c;
+	}
+
+	&:focus {
+		background-color: #6c6c6c;
+	}
+}
+
 .page {
-	background-color: #2f2f2f;
+	background-color: #000;
 	width: 400px;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
 	padding-bottom: 70px;
+	padding-top: 80px;
 }
 
 .page .content {
 	//padding: 10px;
 	display: flex;
 	flex-direction: column;
+	background-color: #000;
 
 	& .block {
 		background-color: #363636;
 		padding: 10px;
 		margin: 10px;
+		border-radius: 28px;
+
+		&.left {
+			text-align: left;
+		}
+
+		&.menu {
+			display: flex;
+			justify-content: space-around;
+			flex-wrap: wrap;
+
+			& .button {
+				width: 100px;
+				display: flex;
+				flex-direction: column;
+				text-align: center;
+				justify-content: center;
+				align-items: center;
+			}
+		}
 
 		& .block {
 			background-color: #474747;
 			padding: 10px;
 			margin: 10px;
+			border-radius: 28px;
 		}
 	}
 }
@@ -55,45 +131,56 @@ body {
 
 .header {
 	background-color: #363636;
-	padding-top: 10px;
-	padding-bottom: 10px;
+	padding: 10px;
 	text-align: center;
+	border-bottom-right-radius: 28px;
+	border-bottom-left-radius: 28px;
+	position: fixed;
+	width: calc(100% - 20px);
+	height: 60px;
+}
+
+.textField {
+	display: flex;
+	justify-content: space-between;
+}
+
+.textBig {
+	font-size: 2em;
+	margin-bottom: 5px;
+}
+
+.textLeft {
+	text-align: left;
+}
+
+.textRight {
+	text-align: right;
 }
 
 .navBottom {
 	display: flex;
-	justify-content: space-around;
+	justify-content: center;
 	position: fixed;
 	bottom: 0;
-	width: 400px;
+	width: 100%;
 	height: 70px;
 	background-color: #363636;
 	text-align: center;
 
+	& .menu {
+		display: flex;
+		width: 100%;
+		justify-content: space-around;
+		text-align: center;
+	}
+
 	& .link {
 		display: flex;
 		flex-direction: column;
+		align-items: center;
 		color: white;
-	}
-}
-
-.button {
-	color: #fff;
-	width: 100%;
-	border: 0;
-	margin-bottom: 10px;
-	padding-top: 5px;
-	padding-bottom: 5px;
-	display: block;
-	background-color: #474747;
-	text-decoration: underline;
-
-	&:hover {
-		background-color: #6c6c6c;
-	}
-
-	&:focus {
-		background-color: #6c6c6c;
+		text-align: center;
 	}
 }
 
@@ -109,6 +196,7 @@ body {
 
 	& .input {
 		width: 80%;
+		border-radius: 28px;
 	}
 
 	& .button {
@@ -119,12 +207,13 @@ body {
 .input {
 	display: block;
 	background-color: #474747;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	padding-top: 5px;
 	padding-bottom: 5px;
 	color: #fff;
 	width: 100%;
 	border: 0;
+	border-radius: 28px;
 
 	&:focus {
 		background-color: #6c6c6c;
@@ -132,8 +221,13 @@ body {
 }
 
 @media screen and (max-width: 479px) {
+	.App {
+		background-color: #000;
+		width: 100%;
+	}
+
 	.page {
-		background-color: #2f2f2f;
+		background-color: #000;
 		width: 100%;
 		text-align: center;
 		display: flex;
