@@ -7,6 +7,10 @@ body {
 	color: #fff;
 }
 
+a {
+	color: #fff;
+}
+
 .App {
 	background-color: #000;
 	display: flex;
@@ -15,6 +19,12 @@ body {
 	margin: 0;
 	color: #fff;
 	width: 400px;
+}
+
+.n {
+	color: #fff;
+	border: 0;
+	background: transparent;
 }
 
 .button {
@@ -127,6 +137,11 @@ body {
 			font-size: 0.8em;
 		}
 	}
+}
+
+.flexRight {
+	display: flex;
+	justify-content: flex-end;
 }
 
 .header {

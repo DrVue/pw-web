@@ -22,6 +22,8 @@ import GetUser from "./pages/Users/Index";
 import Mail from "./pages/Mail/Index";
 import MailAddMessage from "./pages/Mail/NewMessage";
 import MailGetMessages from "./pages/Mail/GetMessages";
+import Articles from "./pages/Articles/Index";
+import ArticleGet from "./pages/Articles/Get";
 
 function App() {
 	return <div className="App">
@@ -38,6 +40,9 @@ function App() {
 			<Route path="/mail" exact component={Mail}/>
 			<Route path="/mail/new/:id" exact component={MailAddMessage}/>
 			<Route path="/mail/get/:id" exact component={MailGetMessages}/>
+
+			<Route path="/articles" exact component={Articles}/>
+			<Route path="/articles/get/:id" exact component={ArticleGet}/>
 
 			<Route path="/region/search" exact component={AdminRegionsSearch}/>
 			<Route path="/region/get/:id" exact component={Region}/>

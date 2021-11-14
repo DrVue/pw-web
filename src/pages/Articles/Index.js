@@ -48,7 +48,12 @@ function Articles(props) {
 					? <div className="block">
 						{
 							articles.map((e, i) => {
-								return <Link className="button" to={`/articles/get/${e._id}`}>{e.title}</Link>
+								return <Link className="button" to={`/articles/get/${e._id}`}>{e.title} <br/>
+									<div>
+										<div className="left">{e.userName}</div>
+										<div className="right">{e.likes}</div>
+									</div>
+								</Link>
 							})
 						}
 						{
@@ -64,3 +69,4 @@ function Articles(props) {
 }
 
 export default withRouter(Articles);
+

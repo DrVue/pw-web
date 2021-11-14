@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import {withRouter, Link} from "react-router-dom";
 import axios from "axios";
 import Icon from "@mdi/react";
-import {mdiHome, mdiAccount} from "@mdi/js";
+import {mdiHome, mdiAccount, mdiNewspaperVariant} from "@mdi/js";
 
 function NavBottom(props) {
 	const [dataUser, setDataUser] = useState({});
@@ -39,6 +39,11 @@ function NavBottom(props) {
 					<Link className="link" to="/home">
 						<Icon path={mdiHome} size={2}/>
 						<div className="title">Домой</div>
+					</Link>
+
+					<Link className="link" to="/articles">
+						<Icon path={mdiNewspaperVariant} size={2}/>
+						<div className="title">Статьи</div>
 					</Link>
 
 					<Link className="link" to={"/users/get/" + dataUser._id}>
